@@ -1,0 +1,21 @@
+
+  <ion-card>
+    <ion-button id="open-modal" expand="block" color="primary">Agregar Asistencia</ion-button>
+  </ion-card>
+
+  
+
+  <!-- MODAL -->
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="Cerrar()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+      
+      <ion-content class="ion-padding">
+        <img id="rick-roll" src="assets/img/Qr.png" alt="Código Qr">
+      </ion-content>
+    </ng-template>
+  </ion-modal>

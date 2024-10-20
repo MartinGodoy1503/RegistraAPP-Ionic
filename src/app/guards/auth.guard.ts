@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
 
@@ -11,14 +11,24 @@ export class AuthGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+
   ): boolean {
-    const isLoggedIn = this.authService.isLoggedIn(); // Método para verificar si el usuario está autenticado
+    const isLoggedIn = this.authService.isLoggedIn();
+    const requiredRole = route.data['role']; // OBTENEMOS EL ROL REQUERIDO DESDE LAS RUTAS.
+    const userRole = this.authService.getUserRole();
 
     if (!isLoggedIn) {
-      this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión si no está autenticado
+      this.router.navigate(['/login']); // REDIRIGIR SI NO ESTÁ AUTENTICADO
       return false;
     }
-    return true; // Permitir el acceso si está autenticado
+
+    if (requiredRole && userRole !== requiredRole) {
+      this.router.navigate(['/login']);
+       // REDIRIGIR SI EL ROL NO ES EL ADECUADO
+       window.alert("La cuenta actual no cuenta con un rol válido.");
+      return false;
+    }
+
+    return true;
   }
 }

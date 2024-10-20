@@ -16,7 +16,7 @@ export class AuthService {
   public currentUser: Observable<any>;
 
   private userName?: string;
-
+  
   constructor(private http: HttpClient, private router: Router) {
     // SE INTENTA OBTENER EL USUARIO ALMACENADO EN LOCALSTORAGE
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
@@ -30,6 +30,7 @@ export class AuthService {
 
   // METODO PARA MANEJAR EL INICIO DE SESION
   login(username: string, password: string) {
+    
     // SE BUSCAN COINCIDENCIAS CON ALGUN USUARIO MEDIANTE LOS CAMPOS USERNAME Y PASSWORD UTILIZANDO UNA SOLICITUD GET 
     return this.http.get<any[]>(`${this.apiUrl}?username=${username}&password=${password}`)
       .pipe(map(users => {

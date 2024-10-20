@@ -26,10 +26,25 @@ const routes: Routes = [
     loadChildren: () => import('./password-recovery/password-recovery.module').then( m => m.PasswordRecoveryPageModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'qrcode',
+    loadChildren: () => import('./qrcode/qrcode.module').then( m => m.QRcodePageModule),
+    canActivate: [AuthGuard],
+  },
+
+  //LA PÁGINA DE ERROR 404 SIEMPRE DEBE ESTAR AL FINAL, YA QUE PUEDE INTERCEPTAR OTRA RUTA PROVOCANDO QUE SALTE EL ERROR CUANDO NO SE DEBA.
+  {
     path: '**',
     loadChildren: () => import('./not-found-page/not-found-page.module').then( m => m.NotFoundPagePageModule)
   },
+
 ];
+
+
 
 @NgModule({
   imports: [

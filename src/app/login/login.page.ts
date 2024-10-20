@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { getActiveConsumer } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-login',
@@ -30,27 +31,34 @@ export class LoginPage implements OnInit {
 
   async onSubmit() {
     if (this.formulariologin.valid) {
+      // OBTIENE LAS CREDENCIALES DE USUARIO
       const username = this.formulariologin.get('username')?.value;
-      const password = this.formulariologin.get('password')?.value; // Obtiene la contraseña
+      const password = this.formulariologin.get('password')?.value; 
   
-      // Establece el nombre de usuario para mostrarlo en pantalla
+      // SETEA O ESTABLECE EL NOMBRE DE USUARIO PARA MOSTRARLO EN PANTALLA
       this.authService.setUserName(username);
   
-      // Llama al método login pasando username y password
+      // LLAMAR AL METODO LOGIN PASANDO USERNAME Y PASSWORD COMO PARAMETROS
       this.authService.login(username, password)
         .subscribe({
           next: (user) => {
-            // Si el login es exitoso, redirige al home
+            const userData = {
+              id: user.id,
+              username: user.username,
+            };
+
+            localStorage.setItem('usuario', JSON.stringify(userData));
+            
+            // DE SER EXITOSO SE REDIRIJE A /HOME 
             this.router.navigate(['/home']);
+          
           },
           error: (err) => {
-            // Manejo de error, puedes mostrar un mensaje al usuario
             console.error(err);
-            alert('Credenciales inválidas'); // Muestra un mensaje de alerta al usuario
+            alert('Credenciales inválidas'); // MENSAJE DE ERROR POR CONSOLA
           }
         });
     } else {
-      // Manejo de error si el formulario no es válido
       alert('Por favor, completa todos los campos requeridos.');
     }
   }

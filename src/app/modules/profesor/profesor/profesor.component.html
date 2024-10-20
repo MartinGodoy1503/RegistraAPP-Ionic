@@ -1,9 +1,73 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Bienvenido Profesor</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    <p>Aquí puedes gestionar tus clases y asistencias.</p>
-    <!-- Otros contenidos específicos para profesores -->
-  </ion-card-content>
-</ion-card>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestión de Asistencias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Bienvenido Profesor, {{ userName }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Aquí puedes gestionar tus clases y asistencias.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- BOTÓN PARA ABRIR EL MODAL -->
+  <ion-button id="open-modal" expand="block" color="primary">Agregar Asistencia</ion-button>
+
+  <ion-card>
+
+    <ion-list>
+      <ion-item *ngFor="let asistencia of asistencias; let i = index">
+        <ion-label>
+          <h2>{{ asistencia.fecha }} - {{ asistencia.hora }}</h2>
+          <p>{{ asistencia.asignatura.nombre }}</p>
+        </ion-label>
+        <ion-button color="danger" (click)="eliminarAsistencia(i)">
+          Eliminar
+        </ion-button>
+        <ion-button (click)="editarAsistencia(asistencia)" color="primary">
+          Editar
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  
+
+  <!-- MODAL -->
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="Cerrar()">Cerrar</ion-button>
+          </ion-buttons>
+          <ion-title>Nueva Asistencia</ion-title>
+          <ion-button (click)="nuevaAsistencia.id ? actualizarAsistencia() : confirm()" [strong]="true">
+            Confirmar
+          </ion-button>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="floating">Fecha</ion-label>
+          <ion-datetime [(ngModel)]="nuevaAsistencia.fecha"></ion-datetime>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating">Hora</ion-label>
+          <ion-input [(ngModel)]="nuevaAsistencia.hora" type="time"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating">Asignatura</ion-label>
+          <ion-input [(ngModel)]="nuevaAsistencia.asignatura.nombre"></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-alumno',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlumnoComponent  implements OnInit {
 
-  constructor() { }
+  userName?: string;
 
-  ngOnInit() {}
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    this.userName = this.authService.getUserName();
+  }
 
 }

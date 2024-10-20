@@ -1,19 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>QRcode</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
-  <ion-header>
+  <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title>Inicio</ion-title>
+      <ion-title size="large">QRcode</ion-title>
     </ion-toolbar>
   </ion-header>
-<!--  CONDICIONAL PARA MOSTRAR EL CONTENIDO DEPENDIENDO DEL ROL DEL USUARIO-->
+
+  <!-- Condicional para mostrar contenido según el rol del usuario -->
   <ng-container *ngIf="userRole === 'alumno'">
-    <app-alumno></app-alumno>
+    <app-alumno-qr></app-alumno-qr>
   </ng-container>
 
   <ng-container *ngIf="userRole === 'profesor'">
-    <app-profesor></app-profesor>
+    <app-profesor-qr></app-profesor-qr>
   </ng-container>
 </ion-content>
-
 
 <ion-footer>
   <ion-toolbar>
