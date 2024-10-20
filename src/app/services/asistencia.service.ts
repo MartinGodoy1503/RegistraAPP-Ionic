@@ -16,6 +16,12 @@ export class AsistenciaService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  // OBTENER ASISTENCIAS POR ALUMNOID
+  getAsistenciasByAlumno(alumnoId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?alumnoId=${alumnoId}`);
+  }
+
+
   // AGREGAR UNA NUEVA ASISTENCIA
   addAsistencia(nuevaAsistencia: any): Observable<any> {
     return this.http.post(this.apiUrl, nuevaAsistencia);
@@ -27,8 +33,8 @@ export class AsistenciaService {
   }
 
   // ACTUALIZAR UNA ASISTENCIA EXISTENTE
-updateAsistencia(asistencia: any): Observable<any> {
-  return this.http.put(`${this.apiUrl}/${asistencia.id}`, asistencia);
-}
+  updateAsistencia(asistencia: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${asistencia.id}`, asistencia);
+  }
 }
 

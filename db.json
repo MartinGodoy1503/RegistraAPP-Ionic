@@ -28,5 +28,28 @@
       "id": "fa4a"
     }
   ],
-  "asistencias": []
+  "asistencias": [
+    {
+      "id": "a7b0",
+      "fecha": "2009-01-07T17:17:00",
+      "hora": "17:18",
+      "asistio": false,
+      "asignatura": {
+        "id": 1,
+        "nombre": "Hola"
+      },
+      "alumnoId": "fa4a"
+    },
+    {
+      "id": "d397",
+      "fecha": "2024-10-20T17:18:00",
+      "hora": "17:10",
+      "asistio": false,
+      "asignatura": {
+        "id": 1,
+        "nombre": "ola"
+      },
+      "alumnoId": "55ab"
+    }
+  ]
 }

@@ -82,6 +82,12 @@ export class AuthService {
     return user?.rol || null; 
   }
 
+  // OBTENER EL ID DEL USUARIO ACTUAL
+  getUserId(): string | null {
+    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    return user?.id || null;
+  }
+
   setUserName(name: string) {
     this.userName = name;
     localStorage.setItem('userName', name);
