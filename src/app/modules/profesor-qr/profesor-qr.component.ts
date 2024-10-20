@@ -13,7 +13,7 @@ export class ProfesorQrComponent implements OnInit {
   userRole: string | null = ''; // VARIABLE PARA ALMACENAR EL ROL DEL USUARIO
   scannedText: string = ''; // ALMACENAR EL TEXTO ESCANEADO
 
-  // Inyecta QRScanner y AuthService en el constructor
+  // INYECTA QRSCANNER Y AUTHSERVICE EN EL CONSTRUCTOR
   constructor(
     private qrScanner: QRScanner,
     private authService: AuthService
