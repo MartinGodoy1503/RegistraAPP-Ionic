@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../alert.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-password-recovery',
@@ -11,7 +13,7 @@ export class PasswordRecoveryPage implements OnInit {
 
   formularioPasswordRecovery: FormGroup = this.fb.group({});
 
-  constructor(public  fb: FormBuilder,private alertService: AlertService) { }
+  constructor(public  fb: FormBuilder,private alertService: AlertService, private router: Router) { }
 
   ngOnInit() {
     this.formularioPasswordRecovery = this.fb.group({
@@ -27,10 +29,8 @@ export class PasswordRecoveryPage implements OnInit {
       const message = `El enlace de recuperación de contraseña ha sido enviado a ${email}.`;
 
       await this.alertService.presentAlert('Éxito', message);    
-      
-    } else {
-
-      // Mostrar alert de error
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      this.router.navigate(['/login']);
 
     }
   }

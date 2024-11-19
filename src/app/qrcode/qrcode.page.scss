@@ -1,0 +1,41 @@
+ion-tabs {
+    margin: 0; 
+    padding: 1px; 
+    position: fixed;
+}
+
+ion-tab-bar {
+    margin: 0; 
+    padding-bottom: 0; 
+    --background: #7513e4;
+}
+
+ion-icon{
+    color: white;
+    font-size: 40px;
+}
+
+ion-label{
+    color: white;
+}
+
+ion-toolbar{
+    --background: #7513e4;   
+}
+
+ion-title{
+    color: white;
+}
+
+ion-content {
+    padding-bottom: 56px; 
+    position: relative;
+    z-index: auto; 
+  }
+  
+  ion-tab-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10; 
+  }

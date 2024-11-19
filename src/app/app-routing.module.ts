@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [authGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: '',
@@ -26,10 +26,24 @@ const routes: Routes = [
     loadChildren: () => import('./password-recovery/password-recovery.module').then( m => m.PasswordRecoveryPageModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'qrcode',
+    loadChildren: () => import('./qrcode/qrcode.module').then( m => m.QRcodePageModule),
+    canActivate: [AuthGuard],
+  },
+
+  {
     path: '**',
     loadChildren: () => import('./not-found-page/not-found-page.module').then( m => m.NotFoundPagePageModule)
   },
+
 ];
+
+
 
 @NgModule({
   imports: [
