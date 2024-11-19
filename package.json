@@ -29,6 +29,9 @@
 
     "@capacitor-community/barcode-scanner": "^4.0.1",
     "@capacitor-mlkit/barcode-scanning": "^6.2.0",
+
+    "@awesome-cordova-plugins/core": "^6.9.0",
+    "@awesome-cordova-plugins/sqlite": "^6.9.0",
     "@capacitor/android": "^6.1.2",
     "@capacitor/app": "6.0.1",
     "@capacitor/core": "^6.1.2",
@@ -50,6 +53,15 @@
     "cordova-plugin-qrscanner": "^3.0.1",
     "ionicons": "^7.0.0",
     "qrcode": "^1.5.4",
+
+    "@ionic-native/barcode-scanner": "^5.36.0",
+    "@ionic/angular": "^8.0.0",
+    "@ionic/storage-angular": "^4.0.0",
+    "angularx-qrcode": "^18.0.1",
+    "cordova-sqlite-storage": "^6.1.0",
+    "ionicons": "^7.0.0",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
+ 
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
