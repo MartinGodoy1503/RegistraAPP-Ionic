@@ -36,7 +36,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
-  //LA PÁGINA DE ERROR 404 SIEMPRE DEBE ESTAR AL FINAL, YA QUE PUEDE INTERCEPTAR OTRA RUTA PROVOCANDO QUE SALTE EL ERROR CUANDO NO SE DEBA.
   {
     path: '**',
     loadChildren: () => import('./not-found-page/not-found-page.module').then( m => m.NotFoundPagePageModule)

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalController } from '@ionic/angular';
+import * as QRCode from 'qrcode';
+
 @Component({
   selector: 'app-profesor',
   templateUrl: './profesor.component.html',
@@ -12,6 +14,7 @@ export class ProfesorComponent implements OnInit {
   
   userName?: string;
   asistencias: any[] = []; // LISTA DE ASISTENCIAS
+  qrCodeUrl: string = '';  //VARIABLE DEL QR GENERADO
 
   // NUEVA ASISTENCIA A REGISTRAR
   nuevaAsistencia = {
@@ -79,15 +82,31 @@ export class ProfesorComponent implements OnInit {
     const asistencia = {
       ...this.nuevaAsistencia,
     };
-  
+
     this.asistenciaService.addAsistencia(asistencia).subscribe(
-      () => {
+      (res: any) => {
         console.log('Asistencia agregada exitosamente');
         this.cargarAsistencias();
         this.resetFormulario();
+        this.generarCodigoQR(res.id);
       },
       (error) => console.error('Error al agregar asistencia:', error)
     );
+    
+  }
+
+   // MÉTODO PARA GENERAR
+   generarCodigoQR(asistenciaId: string) {
+    const qrData = JSON.stringify({
+      asistenciaId: asistenciaId,
+    });
+
+    QRCode.toDataURL(qrData)
+    .then((url: string) => {
+      this.qrCodeUrl = url; 
+    })
+    .catch((err: Error) => console.error('Error al generar el código QR:', err.message));
+
   }
 
   // MÉTODO PARA ELIMINAR UNA ASISTENCIA ESPECÍFICA

@@ -42,7 +42,7 @@
     },
     {
       "id": "d397",
-      "fecha": "2024-10-20T17:18:00",
+      "fecha": "2024-10-21T17:18:00",
       "hora": "17:10",
       "asistio": false,
       "asignatura": {
@@ -50,6 +50,16 @@
         "nombre": "ola"
       },
       "alumnoId": "55ab"
+    },
+    {
+      "id": "c0e3",
+      "fecha": "2024-11-19T11:12:00",
+      "hora": "11:13",
+      "asistio": false,
+      "asignatura": {
+        "id": 1,
+        "nombre": "Lengua"
+      }
     }
   ]
 }

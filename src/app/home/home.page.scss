@@ -7,7 +7,10 @@ ion-tabs {
 ion-tab-bar {
     margin: 0; 
     padding-bottom: 0; 
-    --background: #7513e4;
+   // --background: #7513e4;
+
+    --background: rgb(187,45,22);
+    --background: linear-gradient(90deg, rgba(187,45,22,1) 0%, rgba(218,64,5,1) 35%, rgba(159,247,58,1) 100%);
 }
 
 ion-icon{
@@ -20,7 +23,10 @@ ion-label{
 }
 
 ion-toolbar{
-    --background: #7513e4;   
+    //--background: #7513e4;   
+    --background: rgb(187,45,22);
+    --background: linear-gradient(90deg, rgba(187,45,22,1) 0%, rgba(218,64,5,1) 35%, rgba(159,247,58,1) 100%);
+
 }
 
 ion-title{

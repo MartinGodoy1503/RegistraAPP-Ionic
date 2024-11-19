@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class APIService {
 
-  apiURL = 'http://localhost:3000/usuarios';
-  
+  apiURL = 'http:/localhost:3000/usuarios';
+  //apiURL = 'https://72e7-2803-c600-5108-a75c-967-ad23-6afe-6d88.ngrok-free.app/usuarios';
   constructor(private http:HttpClient) { }
 
   // OBTENER TODOS LOS USUARIOS

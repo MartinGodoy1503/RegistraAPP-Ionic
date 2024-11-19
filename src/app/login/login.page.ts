@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { getActiveConsumer } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-login',
@@ -13,55 +12,57 @@ export class LoginPage implements OnInit {
 
   formulariologin: FormGroup = this.fb.group({});
 
-  constructor(public  fb: FormBuilder, private router: Router, private authService: AuthService,
+  constructor(
+    public fb: FormBuilder, 
+    private router: Router, 
+    private authService: AuthService
   ) {
+    // Definir la estructura del formulario
     this.formulariologin = this.fb.group({
-      'username':new FormControl  ("", Validators.required),
-      'password':new FormControl  ("", Validators.required)
-    })
-   }
-  ngOnInit() {
-
-    this.formulariologin = this.fb.group({
-      username: ['', [Validators.required,]],
-      password: ['', [Validators.required,]],
+      'username': new FormControl("", Validators.required),
+      'password': new FormControl("", Validators.required)
     });
+  }
 
+  ngOnInit() {
+    this.formulariologin = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
   }
 
   async onSubmit() {
     if (this.formulariologin.valid) {
-      // OBTIENE LAS CREDENCIALES DE USUARIO
+      // Obtener las credenciales del formulario
       const username = this.formulariologin.get('username')?.value;
       const password = this.formulariologin.get('password')?.value; 
   
-      // SETEA O ESTABLECE EL NOMBRE DE USUARIO PARA MOSTRARLO EN PANTALLA
+      // Establecer el nombre de usuario en el servicio
       this.authService.setUserName(username);
   
-      // LLAMAR AL METODO LOGIN PASANDO USERNAME Y PASSWORD COMO PARAMETROS
-      this.authService.login(username, password)
-        .subscribe({
-          next: (user) => {
-            const userData = {
-              id: user.id,
-              username: user.username,
-            };
+      // Llamar al método login pasando el username y password
+      this.authService.login(username, password).subscribe({
+        next: (user) => {
+          // Al recibir un usuario válido, almacenarlo en localStorage
+          const userData = {
+            id: user.id,
+            username: user.username,
+          };
 
-            localStorage.setItem('usuario', JSON.stringify(userData));
-            
-            // DE SER EXITOSO SE REDIRIJE A /HOME 
-            this.router.navigate(['/home']);
+          localStorage.setItem('usuario', JSON.stringify(userData));
           
-          },
-          error: (err) => {
-            console.error(err);
-            alert('Credenciales inválidas'); // MENSAJE DE ERROR POR CONSOLA
-          }
-        });
+          // Redirigir a la página principal (home)
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          // Si hay un error, mostrar un mensaje
+          console.error(err);
+          alert('Credenciales inválidas');
+        }
+      });
     } else {
+      // Si el formulario no es válido, mostrar alerta
       alert('Por favor, completa todos los campos requeridos.');
     }
   }
-  
-
 }

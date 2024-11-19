@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,25 +30,43 @@ export class AuthService {
 
   // METODO PARA MANEJAR EL INICIO DE SESION
   login(username: string, password: string) {
-    
-    // SE BUSCAN COINCIDENCIAS CON ALGUN USUARIO MEDIANTE LOS CAMPOS USERNAME Y PASSWORD UTILIZANDO UNA SOLICITUD GET 
-    return this.http.get<any[]>(`${this.apiUrl}?username=${username}&password=${password}`)
-      .pipe(map(users => {
-
-        // SI SE ENCUENTRA UN USUARIO SE ALMACENA EN LOCALSTORAGE Y SE ACTUALIZA SU ESTADO 
-
+        // PRIMERO SE IDENTIFICA CON JSON
+    return this.http.get<any[]>(`${this.apiUrl}?username=${username}&password=${password}`).pipe(
+      map(users => {
+        // SI SE ENCUENTRA SE ALMACENA
         if (users.length > 0) {
           const user = users[0];
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
-          
-          // SE RETORNA EL USUARIO
-          return user; 
+          return user;
         } else {
-          throw new Error('Credenciales inválidas'); // SE LANZA UN ERROR SI LAS CREDENCIALES NO SON VALIDAS
+          // SINO SE UTILIZA CREDENCIALES FIJAS
+          return this.loginCredencialesFijas(username, password);
         }
+      }),
+      // CAPTURAR ERROR EL PETICION GET
+      catchError(err => {
+        console.error(err);
+        return throwError('Error en la autenticación');
+      })
+    );
+  }
 
-      }));
+  private loginCredencialesFijas(username: string, password: string) {
+    if (username === 'admin' && password === 'admin') {
+      const user = {
+        id: '1000',
+        username: 'admin',
+        rol: 'admin', 
+        nombre: 'profesor'
+      };
+
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user);
+      return user;
+    } else {
+      throw new Error('Credenciales inválidas');
+    }
   }
 
   getCurrentUser() {

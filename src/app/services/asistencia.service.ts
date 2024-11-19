@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 
 export class AsistenciaService {
-  private apiUrl = 'http://localhost:3000/asistencias'; // Cambia según la URL base de tu API
+  private apiUrl = 'http://localhost:3000/asistencias';
 
   constructor(private http: HttpClient) {}
 
