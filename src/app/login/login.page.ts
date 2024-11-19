@@ -17,7 +17,6 @@ export class LoginPage implements OnInit {
     private router: Router, 
     private authService: AuthService
   ) {
-    // Definir la estructura del formulario
     this.formulariologin = this.fb.group({
       'username': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required)
@@ -36,7 +35,6 @@ export class LoginPage implements OnInit {
       const username = this.formulariologin.get('username')?.value;
       const password = this.formulariologin.get('password')?.value; 
   
-      // Establecer el nombre de usuario en el servicio
       this.authService.setUserName(username);
   
       this.authService.login(username, password).subscribe({
@@ -48,11 +46,9 @@ export class LoginPage implements OnInit {
 
           localStorage.setItem('usuario', JSON.stringify(userData));
           
-          // Redirigir a la página principal (home)
           this.router.navigate(['/home']);
         },
         error: (err) => {
-          // Si hay un error, mostrar un mensaje
           console.error(err);
           alert('Credenciales inválidas');
         }
@@ -62,6 +58,8 @@ export class LoginPage implements OnInit {
     }
   }
 }
+
+
 
     if (this.formulariologin.valid) {  
       const username = this.formulariologin.get('username')?.value;
@@ -76,3 +74,4 @@ export class LoginPage implements OnInit {
     //H 
   }
 }
+
