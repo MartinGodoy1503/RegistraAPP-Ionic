@@ -1,11 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-import { DBTaskService } from './dbtask.service';
-=======
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
->>>>>>> nueva-rama-evaluacion
 
 @Injectable({
   providedIn: 'root'
@@ -20,26 +16,6 @@ export class AuthService {
   public currentUser: Observable<any>;
 
   private userName?: string;
-<<<<<<< HEAD
-  private isLoggedIn = false;
-
-  constructor(private dbTask: DBTaskService) { }
-
-  isAuthenticated(): boolean {
-    return this.isLoggedIn;
-  }
-
-  async login(username: string, password: string): Promise<boolean> {
-    const user = await this.dbTask.getUser(username, password);
-
-    if (user) {
-      this.isLoggedIn = true;
-      localStorage.setItem('userName', username); 
-      return true;
-    }
-
-    return false;
-=======
   
   constructor(private http: HttpClient, private router: Router) {
     // SE INTENTA OBTENER EL USUARIO ALMACENADO EN LOCALSTORAGE
@@ -101,7 +77,6 @@ export class AuthService {
     }
     // SI NO HAY USUARIO LOGUEADO
     return null; 
->>>>>>> nueva-rama-evaluacion
   }
 
   logout() {
