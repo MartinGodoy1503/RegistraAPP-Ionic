@@ -12,23 +12,57 @@ export class LoginPage implements OnInit {
 
   formulariologin: FormGroup = this.fb.group({});
 
-  constructor(public  fb: FormBuilder, private router: Router, private authService: AuthService,
+  constructor(
+    public fb: FormBuilder, 
+    private router: Router, 
+    private authService: AuthService
   ) {
+    // Definir la estructura del formulario
     this.formulariologin = this.fb.group({
-      'username':new FormControl  ("", Validators.required),
-      'password':new FormControl  ("", Validators.required)
-    })
-   }
-  ngOnInit() {
-
-    this.formulariologin = this.fb.group({
-      username: ['', [Validators.required,]],
-      password: ['', [Validators.required,]],
+      'username': new FormControl("", Validators.required),
+      'password': new FormControl("", Validators.required)
     });
+  }
 
+  ngOnInit() {
+    this.formulariologin = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
   }
 
   async onSubmit() {
+    if (this.formulariologin.valid) {
+      const username = this.formulariologin.get('username')?.value;
+      const password = this.formulariologin.get('password')?.value; 
+  
+      // Establecer el nombre de usuario en el servicio
+      this.authService.setUserName(username);
+  
+      this.authService.login(username, password).subscribe({
+        next: (user) => {
+          const userData = {
+            id: user.id,
+            username: user.username,
+          };
+
+          localStorage.setItem('usuario', JSON.stringify(userData));
+          
+          // Redirigir a la página principal (home)
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          // Si hay un error, mostrar un mensaje
+          console.error(err);
+          alert('Credenciales inválidas');
+        }
+      });
+    } else {
+      alert('Por favor, completa todos los campos requeridos.');
+    }
+  }
+}
+
     if (this.formulariologin.valid) {  
       const username = this.formulariologin.get('username')?.value;
       const password = this.formulariologin.get('password')?.value;

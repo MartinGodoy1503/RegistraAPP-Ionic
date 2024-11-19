@@ -1,0 +1,65 @@
+{
+  "usuarios": [
+    {
+      "username": "jdoe",
+      "email": "jdoe@example.com",
+      "password": "Admin123!",
+      "nombre_completo": "John Doe",
+      "rol": "alumno",
+      "estado": "activo",
+      "id": "55ab"
+    },
+    {
+      "username": "mgarcia",
+      "email": "mgarcia@example.com",
+      "password": "Admin123!",
+      "nombre_completo": "Maria Garcia",
+      "rol": "profesor",
+      "estado": "activo",
+      "id": "651b"
+    },
+    {
+      "username": "flopez",
+      "email": "flopez12@example.com",
+      "password": "Admin123!",
+      "nombre_completo": "Francisco Lopez",
+      "rol": "alumno",
+      "estado": "activo",
+      "id": "fa4a"
+    }
+  ],
+  "asistencias": [
+    {
+      "id": "a7b0",
+      "fecha": "2009-01-07T17:17:00",
+      "hora": "17:18",
+      "asistio": false,
+      "asignatura": {
+        "id": 1,
+        "nombre": "Hola"
+      },
+      "alumnoId": "fa4a"
+    },
+    {
+      "id": "d397",
+      "fecha": "2024-10-21T17:18:00",
+      "hora": "17:10",
+      "asistio": false,
+      "asignatura": {
+        "id": 1,
+        "nombre": "ola"
+      },
+      "alumnoId": "55ab"
+    },
+    {
+      "id": "c0e3",
+      "fecha": "2024-11-19T11:12:00",
+      "hora": "11:13",
+      "asistio": false,
+      "asignatura": {
+        "id": 1,
+        "nombre": "Lengua"
+      }
+    }
+  ]
+}
