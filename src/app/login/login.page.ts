@@ -33,17 +33,14 @@ export class LoginPage implements OnInit {
 
   async onSubmit() {
     if (this.formulariologin.valid) {
-      // Obtener las credenciales del formulario
       const username = this.formulariologin.get('username')?.value;
       const password = this.formulariologin.get('password')?.value; 
   
       // Establecer el nombre de usuario en el servicio
       this.authService.setUserName(username);
   
-      // Llamar al método login pasando el username y password
       this.authService.login(username, password).subscribe({
         next: (user) => {
-          // Al recibir un usuario válido, almacenarlo en localStorage
           const userData = {
             id: user.id,
             username: user.username,
@@ -61,8 +58,21 @@ export class LoginPage implements OnInit {
         }
       });
     } else {
-      // Si el formulario no es válido, mostrar alerta
       alert('Por favor, completa todos los campos requeridos.');
     }
+  }
+}
+
+    if (this.formulariologin.valid) {  
+      const username = this.formulariologin.get('username')?.value;
+      const password = this.formulariologin.get('password')?.value;
+      this.authService.setUserName(username);
+      if (await this.authService.login(username, password)) {
+        this.router.navigate(['/home']);
+      } else {
+        alert('Credenciales incorrectas. Intenta de nuevo.');
+      }
+    }
+    //H 
   }
 }

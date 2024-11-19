@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 
+import { DBTaskService } from './dbtask.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -61,6 +63,8 @@ export class AuthService {
         nombre: 'profesor'
       };
 
+  constructor(private dbTask: DBTaskService) { }
+
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUserSubject.next(user);
       return user;
@@ -77,6 +81,17 @@ export class AuthService {
     }
     // SI NO HAY USUARIO LOGUEADO
     return null; 
+
+  async login(username: string, password: string): Promise<boolean> {
+    const user = await this.dbTask.getUser(username, password);
+
+    if (user) {
+      this.isLoggedIn = true;
+      localStorage.setItem('userName', username); 
+      return true;
+    }
+
+    return false;
   }
 
   logout() {
