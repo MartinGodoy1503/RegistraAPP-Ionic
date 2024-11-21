@@ -14,4 +14,3 @@ describe('DbtaskService', () => {
     expect(service).toBeTruthy();
   });
 });
-git checkout -b <nombre-de-la-rama-local> origin/<nombre-de-la-rama-remota>
