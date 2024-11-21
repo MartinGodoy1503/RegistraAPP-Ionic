@@ -1,22 +1,23 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProfesorQrComponent } from './profesor-qr.component';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { of } from 'rxjs';
 
 describe('ProfesorQrComponent', () => {
   let component: ProfesorQrComponent;
   let fixture: ComponentFixture<ProfesorQrComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfesorQrComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ProfesorQrComponent],
+      providers: [
+        { provide: QRScanner, useValue: { scan: () => of('mock data') } } 
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfesorQrComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

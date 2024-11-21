@@ -1,4 +1,3 @@
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -37,6 +36,7 @@
               </ion-col>
             </ion-row>
 
+            <!-- Email -->
             <ion-row>
               <ion-col size="auto">
                 <ion-icon name="mail" style="font-size: 30px;"></ion-icon>
@@ -48,14 +48,14 @@
                   type="email"
                   label-placement="floating"
                   fill="outline"
-                  placeholder="Confirmar contraseña"
+                  placeholder="Ejemplo: correo@dominio.com"
                 ></ion-input>
-                <div *ngIf="formulariosignup.controls['email'].errors?.['email']">
-                  Ingrese un formato de correo válido.
-                </div>
                 <div *ngIf="formulariosignup.get('email')?.invalid && (formulariosignup.get('email')?.dirty || formulariosignup.get('email')?.touched)">
                   <div *ngIf="formulariosignup.get('email')?.errors?.['required']">
                     El correo electrónico es obligatorio.
+                  </div>
+                  <div *ngIf="formulariosignup.get('email')?.errors?.['email']">
+                    Ingrese un formato de correo válido.
                   </div>
                 </div>
               </ion-col>
@@ -75,15 +75,15 @@
                   fill="outline"
                   placeholder="Contraseña"
                 ></ion-input>
-                <!--  Mensaje de error - *ngIf permite mostrar y 
-                      ocultar elemntos del HTML Mientras la expresion sea true-->
-                <div *ngIf="formulariosignup.controls['password'].errors?.['invalidPassword']">
-                  La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una letra minúscula, un número y un carácter especial.
+                <div *ngIf="formulariosignup.get('password')?.invalid && (formulariosignup.get('password')?.dirty || formulariosignup.get('password')?.touched)">
+                  <div *ngIf="formulariosignup.get('password')?.errors?.['invalidPassword']">
+                    La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una letra minúscula, un número y un carácter especial.
+                  </div>
                 </div>
-
               </ion-col>
             </ion-row>
-            <!-- Confirmar contraseña -->
+
+            <!-- Confirmar Contraseña -->
             <ion-row>
               <ion-col size="auto">
                 <ion-icon name="lock-closed" style="font-size: 30px;"></ion-icon>
@@ -97,19 +97,16 @@
                   fill="outline"
                   placeholder="Confirmar contraseña"
                 ></ion-input>
-                <!--  Mensaje de error - *ngIf permite mostrar y 
-                      ocultar elemntos del HTML Mientras la expresion sea true-->
                 <div *ngIf="formulariosignup.errors?.['mismatch']">
-                  Las contraseñas no coinciden
+                  Las contraseñas no coinciden.
                 </div>
-
               </ion-col>
             </ion-row>
 
             <!-- Botón de registro -->
             <ion-row>
               <ion-col>
-                <ion-button expand="full" type="submit">Registrar</ion-button>
+                <ion-button expand="full" type="submit" [disabled]="formulariosignup.invalid">Registrar</ion-button>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -117,5 +114,4 @@
       </form>
     </ion-card>
   </ion-grid>
-
 </ion-content>

@@ -5,6 +5,7 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
+    "e2e": "protractor protractor.conf.js",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -25,8 +26,7 @@
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@awesome-cordova-plugins/core": "^6.9.0",
-    "@awesome-cordova-plugins/sqlite": "^6.9.0",
-
+    "@awesome-cordova-plugins/sqlite": "^6.11.0",
     "@capacitor-community/barcode-scanner": "^4.0.1",
     "@capacitor-mlkit/barcode-scanning": "^6.2.0",
 
@@ -40,18 +40,15 @@
     "@capacitor/keyboard": "6.0.2",
     "@capacitor/status-bar": "6.0.1",
     "@ionic-native/barcode-scanner": "^5.36.0",
-    "@ionic/angular": "^8.0.0",
-    "@ionic/storage-angular": "^4.0.0",
-    "angularx-qrcode": "^18.0.1",
-    "cordova-sqlite-storage": "^6.1.0",
-    "ionicons": "^7.0.0",
-    "phonegap-plugin-barcodescanner": "^8.1.0",
-
     "@ionic-native/core": "^5.36.0",
     "@ionic-native/qr-scanner": "^5.36.0",
     "@ionic/angular": "^8.0.0",
+    "@ionic/storage-angular": "^4.0.0",
+    "angularx-qrcode": "^18.0.1",
     "cordova-plugin-qrscanner": "^3.0.1",
+    "cordova-sqlite-storage": "^6.1.0",
     "ionicons": "^7.0.0",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
     "qrcode": "^1.5.4",
 
     "@ionic-native/barcode-scanner": "^5.36.0",
@@ -79,13 +76,17 @@
     "@capacitor/cli": "^6.1.2",
     "@ionic/angular-toolkit": "^11.0.1",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^22.9.1",
+    "@types/protractor": "^1.5.20",
     "@types/qrcode": "^1.5.5",
+    "@types/selenium-webdriver": "^4.1.27",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.1",
     "eslint-plugin-prefer-arrow": "1.2.2",
+    "jasmine": "^5.4.0",
     "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.4.0",
@@ -93,7 +94,10 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.0"
+    "protractor": "^7.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.4.0",
+    "webdriver-manager": "^12.1.9"
   },
   "description": "An Ionic project"
 }
