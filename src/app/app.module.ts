@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx'; 
-//import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
@@ -26,6 +26,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     IonicStorageModule.forRoot(), 
   ],
   providers: [
+    SQLite,
     QRScanner,                   
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
   ],

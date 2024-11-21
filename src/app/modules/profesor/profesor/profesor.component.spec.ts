@@ -1,24 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; 
 import { ProfesorComponent } from './profesor.component';
+import { AuthService } from '../../../services/auth.service'; 
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ProfesorComponent', () => {
-  let component: ProfesorComponent;
-  let fixture: ComponentFixture<ProfesorComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProfesorComponent ],
-      imports: [IonicModule.forRoot()]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule, 
+        ReactiveFormsModule, 
+      ],
+      declarations: [ProfesorComponent],
+      providers: [AuthService], 
     }).compileComponents();
-
-    fixture = TestBed.createComponent(ProfesorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
+    const fixture = TestBed.createComponent(ProfesorComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });
