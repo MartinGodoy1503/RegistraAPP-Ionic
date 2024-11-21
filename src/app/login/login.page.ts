@@ -59,3 +59,20 @@ export class LoginPage implements OnInit {
     }
   }
 }
+
+
+
+    if (this.formulariologin.valid) {  
+      const username = this.formulariologin.get('username')?.value;
+      const password = this.formulariologin.get('password')?.value;
+      this.authService.setUserName(username);
+      if (await this.authService.login(username, password)) {
+        this.router.navigate(['/home']);
+      } else {
+        alert('Credenciales incorrectas. Intenta de nuevo.');
+      }
+    }
+    //H 
+  }
+}
+
