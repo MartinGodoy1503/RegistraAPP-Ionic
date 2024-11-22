@@ -6,35 +6,36 @@ import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { DBTaskService } from './dbtask.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  //CURRENT USER = USUARIO ACTUAL
-  //USER SUBJECT = ASUNTO DEL USUARIO
+  // CURRENT USER = USUARIO ACTUAL
+  // USER SUBJECT = ASUNTO DEL USUARIO
 
   private apiUrl = 'http://localhost:3000/usuarios'; // SERVIDOR JSON
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
   private userName?: string;
-  
-  constructor(private http: HttpClient, private router: Router) {
+
+  constructor(private http: HttpClient, private router: Router, private dbTask: DBTaskService) {
     // SE INTENTA OBTENER EL USUARIO ALMACENADO EN LOCALSTORAGE
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
+    this.currentUserSubject = new BehaviorSubject<any>(
+      JSON.parse(localStorage.getItem('currentUser') || '{}')
+    );
     this.currentUser = this.currentUserSubject.asObservable();
-   }
-  
-    // OBTENER EL VALOR ACTUAL DEL USUARIO 
+  }
+
+  // OBTENER EL VALOR ACTUAL DEL USUARIO
   public get currentUserValue(): any {
     return this.currentUserSubject.value;
   }
 
   // METODO PARA MANEJAR EL INICIO DE SESION
   login(username: string, password: string) {
-        // PRIMERO SE IDENTIFICA CON JSON
+    // PRIMERO SE IDENTIFICA CON JSON
     return this.http.get<any[]>(`${this.apiUrl}?username=${username}&password=${password}`).pipe(
-      map(users => {
+      map((users) => {
         // SI SE ENCUENTRA SE ALMACENA
         if (users.length > 0) {
           const user = users[0];
@@ -46,8 +47,8 @@ export class AuthService {
           return this.loginCredencialesFijas(username, password);
         }
       }),
-      // CAPTURAR ERROR EL PETICION GET
-      catchError(err => {
+      // CAPTURAR ERROR EN LA PETICION GET
+      catchError((err) => {
         console.error(err);
         return throwError('Error en la autenticación');
       })
@@ -59,11 +60,9 @@ export class AuthService {
       const user = {
         id: '1000',
         username: 'admin',
-        rol: 'admin', 
-        nombre: 'profesor'
+        rol: 'admin',
+        nombre: 'profesor',
       };
-
-  constructor(private dbTask: DBTaskService) { }
 
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUserSubject.next(user);
@@ -77,17 +76,18 @@ export class AuthService {
     const user = localStorage.getItem('currentUser');
     if (user) {
       // CONVERTIR DE STRING A OBJETO
-      return JSON.parse(user); 
+      return JSON.parse(user);
     }
     // SI NO HAY USUARIO LOGUEADO
-    return null; 
+    return null;
+  }
 
-  async login(username: string, password: string): Promise<boolean> {
+  async loginDB(username: string, password: string): Promise<boolean> {
     const user = await this.dbTask.getUser(username, password);
 
     if (user) {
-      this.isLoggedIn = true;
-      localStorage.setItem('userName', username); 
+      localStorage.setItem('userName', username);
+      this.currentUserSubject.next(user);
       return true;
     }
 
@@ -97,14 +97,13 @@ export class AuthService {
   logout() {
     // ELIMINA AL USUARIO DE LOCALSTORAGE Y ACTUALIZAMOS EL ESTADO A NULL
     localStorage.removeItem('currentUser');
-    
     this.currentUserSubject.next(null);
     // REDIRIGIR AL USUARIO A LA PAGINA DE INICIO DE SESION
     this.router.navigate(['/login']);
   }
 
-   // VERIFICAR SI EL USUARIO ESTÁ AUTENTICADO
-   isLoggedIn(): boolean {
+  // VERIFICAR SI EL USUARIO ESTÁ AUTENTICADO
+  isLoggedIn(): boolean {
     return !!localStorage.getItem('currentUser');
   }
 
@@ -112,7 +111,7 @@ export class AuthService {
   getUserRole(): string | null {
     const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
     // SI EL USUARIO TIENE UN ROL, LO DEVOLVEMOS
-    return user?.rol || null; 
+    return user?.rol || null;
   }
 
   // OBTENER EL ID DEL USUARIO ACTUAL
