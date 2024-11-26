@@ -9,13 +9,13 @@ describe('Login Page Tests', () => {
     await page.navigateTo();
   });
 
-  it('should show an error when the fields are empty', async () => {
+  it('debería mostar un error cuando los campos están vacíos', async () => {
     await page.clickLogin();
     const alertText = await page.getAlertText();
     expect(alertText).toContain('Por favor, completa todos los campos requeridos.');
   });
 
-  it('should show an error for invalid credentials', async () => {
+  it('debería mostar un error para credenciales invalidas', async () => {
     await page.setUsername('wrongUser');
     await page.setPassword('wrongPass');
     await page.clickLogin();
@@ -23,7 +23,7 @@ describe('Login Page Tests', () => {
     expect(alertText).toContain('Credenciales inválidas');
   });
 
-  it('should redirect to /home on valid login', async () => {
+  it('debería redirigir a /home cuando hayan credenciales válidas', async () => {
     await page.setUsername('correctUser');
     await page.setPassword('correctPass');
     await page.clickLogin();

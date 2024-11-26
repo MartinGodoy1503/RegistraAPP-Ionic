@@ -10,69 +10,53 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-  formulariologin: FormGroup = this.fb.group({});
+  formulariologin: FormGroup;
 
   constructor(
-    public fb: FormBuilder, 
-    private router: Router, 
+    private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService
   ) {
+    // Inicialización del formulario
     this.formulariologin = this.fb.group({
-      'username': new FormControl("", Validators.required),
-      'password': new FormControl("", Validators.required)
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
-  ngOnInit() {
-    this.formulariologin = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-    });
+  ngOnInit(): void {
+    // Si necesitas inicializar algo adicional al inicio
   }
 
   async onSubmit() {
     if (this.formulariologin.valid) {
       const username = this.formulariologin.get('username')?.value;
-      const password = this.formulariologin.get('password')?.value; 
-  
+      const password = this.formulariologin.get('password')?.value;
+
+      // Asignar el nombre de usuario al servicio de autenticación
       this.authService.setUserName(username);
-  
-      this.authService.login(username, password).subscribe({
-        next: (user) => {
+
+      try {
+        const loginResponse = await this.authService.login(username, password).toPromise();
+
+        // Si se autentica correctamente
+        if (loginResponse) {
           const userData = {
-            id: user.id,
-            username: user.username,
+            id: loginResponse.id,
+            username: loginResponse.username,
           };
 
           localStorage.setItem('usuario', JSON.stringify(userData));
-          
           this.router.navigate(['/home']);
-        },
-        error: (err) => {
-          console.error(err);
-          alert('Credenciales inválidas');
+        } else {
+          alert('Credenciales incorrectas. Intenta de nuevo.');
         }
-      });
+      } catch (err) {
+        console.error(err);
+        alert('Error durante la autenticación. Verifica tus credenciales.');
+      }
     } else {
       alert('Por favor, completa todos los campos requeridos.');
     }
   }
 }
-
-
-
-    if (this.formulariologin.valid) {  
-      const username = this.formulariologin.get('username')?.value;
-      const password = this.formulariologin.get('password')?.value;
-      this.authService.setUserName(username);
-      if (await this.authService.login(username, password)) {
-        this.router.navigate(['/home']);
-      } else {
-        alert('Credenciales incorrectas. Intenta de nuevo.');
-      }
-    }
-    //H 
-  }
-}
-
