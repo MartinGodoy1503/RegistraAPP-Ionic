@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
   namespace "com.registrAPP.app"
-  compileSdk 34
+  compileSdk 35
+
   defaultConfig {
     applicationId "com.registrAPP.app"
     minSdk 22
@@ -11,13 +12,22 @@ android {
     versionName "1.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     aaptOptions {
-
       ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
     }
   }
-  buildToolsVersion "34.0.0"
+
+  signingConfigs {
+    release {
+      storeFile file("C:\\Users\\marti\\OneDrive\\Documentos\\keystores\\my-release-key.jks")
+      storePassword "HakuChris01!"
+      keyAlias "mi-alias-de-clave"
+      keyPassword "HakuChris01!"
+    }
+  }
+
   buildTypes {
     release {
+      signingConfig signingConfigs.release
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
@@ -25,7 +35,7 @@ android {
 }
 
 repositories {
-    flatDir{
+    flatDir {
         dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
     }
 }
@@ -36,16 +46,13 @@ dependencies {
   implementation "androidx.constraintlayout:constraintlayout:2.2.0"
   implementation "com.google.android.material:material:1.12.0"
 
-  // Capacitor dependencies
   implementation project(':capacitor-android')
   implementation project(':capacitor-cordova-android-plugins')
 
-  // Testing dependencies
   testImplementation "junit:junit:4.13.2"
   androidTestImplementation "androidx.test.ext:junit:1.2.1"
   androidTestImplementation "androidx.test.espresso:espresso-core:3.6.1"
 }
-
 
 apply from: 'capacitor.build.gradle'
 
