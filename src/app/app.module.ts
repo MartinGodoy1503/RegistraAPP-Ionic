@@ -12,6 +12,8 @@ import { MatCardModule } from '@angular/material/card';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx'; 
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
 
 @NgModule({
   declarations: [AppComponent],  
@@ -23,7 +25,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     BrowserAnimationsModule,     
     MatButtonModule,             
     MatCardModule,               
-    IonicStorageModule.forRoot(), 
+    IonicStorageModule.forRoot(),  
   ],
   providers: [
     SQLite,

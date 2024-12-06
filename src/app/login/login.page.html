@@ -27,7 +27,6 @@
       <form [formGroup]="formulariologin" (ngSubmit)="onSubmit()">
       <ion-row>
           <ion-col>
-          <!-- Input username -->
           <ion-row>
             <ion-col size="auto">
               <ion-icon name="person" style="font-size: 30px;"></ion-icon>
@@ -77,18 +76,16 @@
               <ion-button expand="full" type="submit">Ingresar</ion-button>
             </ion-col>
           </ion-row>
-          <!-- Agregar recuperar contraseña aquí abajo! revisar app-routing.modules.ts-->
           <ion-row>
             <ion-col>
               <p> ¿Olvidaste tu contrseña? Recuperala haciendo 
                 <a [routerLink]="['/password-recovery']" style="text-decoration: none;">click aquí!</a> </p>
             </ion-col>
-          </ion-row>
+          </ion-row>a
         </ion-col>
       </ion-row>
     </form> 
     </ion-card>
-    <!--  ruta de redirección-->
           <ion-row>
             <ion-col>
               <p> ¿Eres nuevo? Regístrate haciendo <a [routerLink]="['/signup']" style="text-decoration: none;">click aquí!</a> </p>

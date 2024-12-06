@@ -35,3 +35,24 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+
+.qr-card {
+    margin: 20px;
+    text-align: center;
+  }
+  
+  .qr-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    height: auto;
+  }
+  
+  .qr-container img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  
