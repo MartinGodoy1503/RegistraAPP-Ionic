@@ -1,72 +1,82 @@
-<ion-header >
-  <ion-toolbar style="background-color: rgb(89, 151, 122) !important;">
-    <ion-title>Gestión de Asistencias</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Gestión de Asistencias del Profesor</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card style="color: white; background-color: rgb(89, 151, 122);">
+  <!-- Bienvenida al Profesor -->
+  <ion-card style="color: white; background-color: rgb(89, 151, 122); text-align: center;">
     <ion-card-header>
-      <ion-card-title style="color: white;">Bienvenido Profesor, {{ userName }}</ion-card-title>
+      <ion-card-title>Bienvenido Profesor, {{ userName }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Aquí puedes gestionar tus clases y asistencias.</p>
+      <p>Gestiona tus clases y asistencias fácilmente.</p>
     </ion-card-content>
   </ion-card>
 
-  <!-- BOTÓN PARA ABRIR EL MODAL -->
-  <ion-button id="open-modal" expand="block" color="primary">Agregar Asistencia</ion-button>
-  <ion-card>
+  <!-- Formulario para Agregar Asistencia -->
+  <ion-button expand="block" color="primary" (click)="mostrarFormulario = !mostrarFormulario">
+    {{ mostrarFormulario ? 'Cancelar' : 'Agregar Asistencia' }}
+  </ion-button>
 
-    <ion-list>
-      <ion-item *ngFor="let asistencia of asistencias; let i = index">
-        <ion-label>
-          <h2>{{ asistencia.fecha }} - {{ asistencia.hora }}</h2>
-          <p>{{ asistencia.asignatura.nombre }}</p>
-        </ion-label>
-        <ion-button color="danger" (click)="eliminarAsistencia(i)">
-          Eliminar
-        </ion-button>
-        <ion-button (click)="editarAsistencia(asistencia)" color="primary">
-          Editar
-        </ion-button>
-      </ion-item>
-    </ion-list>
-  </ion-card>
 
+  <ion-card *ngIf="mostrarFormulario">
+  <!-- Selección de Asignatura -->
+  <ion-item>
+    <ion-label>Asignatura</ion-label>
+    <ion-select [(ngModel)]="nuevaAsistencia.asignatura" placeholder="Selecciona una asignatura">
+      <ion-select-option *ngFor="let asignatura of asignaturas" [value]="asignatura">
+        {{ asignatura.nombre }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Selección de Horario (visible solo cuando se ha seleccionado una asignatura) -->
+ 
+  <ion-item *ngIf="nuevaAsistencia.asignatura">
+    <ion-label>Horario</ion-label>
+    <ion-select [(ngModel)]="nuevaAsistencia.horarioSeleccionado" placeholder="Selecciona un horario">
+      <ion-select-option *ngFor="let horario of nuevaAsistencia.asignatura.horarios" [value]="horario">
+        {{ horario.dia }} - {{ horario.horaInicio }} a {{ horario.horaFin }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  
   
 
-  <!-- MODAL -->
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button (click)="Cerrar()">Cerrar</ion-button>
-          </ion-buttons>
-          <ion-title>Nueva Asistencia</ion-title>
-          <ion-button (click)="nuevaAsistencia.id ? actualizarAsistencia() : confirm()" [strong]="true">
-            Confirmar
-          </ion-button>
-        </ion-toolbar>
-      </ion-header>
+  <!-- Botón para registrar la asistencia y generar el QR -->
+  <ion-button expand="block" color="success" (click)="registrarNuevaAsistencia()">
+    Generar Código QR
+  </ion-button>
+</ion-card>
+  <!-- Lista de Asistencias -->
+  <ion-list>
+    <ion-item *ngFor="let asistencia of asistencias; let i = index">
+      <ion-label>
+        <h2>{{ asistencia.fecha | date: 'shortDate' }} - {{ asistencia.horario.dia }}</h2>
+        <p>{{ asistencia.asignatura.nombre }} ({{ asistencia.horario.horaInicio }} - {{ asistencia.horario.horaFin }})</p>
+      </ion-label>
+      <ion-button color="danger" (click)="eliminarAsistencia(i)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
 
-      <ion-content class="ion-padding">
-        <ion-item>
-          <ion-label position="floating">Fecha</ion-label>
-          <ion-datetime [(ngModel)]="nuevaAsistencia.fecha"></ion-datetime>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Hora</ion-label>
-          <ion-input [(ngModel)]="nuevaAsistencia.hora" type="time"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Asignatura</ion-label>
-          <ion-input [(ngModel)]="nuevaAsistencia.asignatura.nombre"></ion-input>
-        </ion-item>
-      </ion-content>
-    </ng-template>
+  <!-- Modal para Mostrar el QR -->
+  <ion-modal [isOpen]="qrModalOpen" (ionModalDidDismiss)="qrModalOpen = false">
+    <ion-content>
+      <ion-card class="qr-card">
+        <ion-card-header>
+          <ion-card-title>Código QR generado</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="qr-container">
+            <img *ngIf="qrCodeUrl" [src]="qrCodeUrl" alt="Código QR generado" />
+          </div>
+          <ion-button expand="block" color="danger" (click)="qrModalOpen = false">
+            Cerrar
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-content>
   </ion-modal>
 </ion-content>

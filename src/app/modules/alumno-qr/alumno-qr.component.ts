@@ -15,35 +15,35 @@ export class AlumnoQrComponent  implements OnInit {
   ngOnInit() {}
 
   // METODO PARA ESCANEAR EL QR
-  async escanearQR() {
-    try {
-      const permission = await BarcodeScanner.checkPermission({ force: true });
-      if (!permission.granted) {
-        alert('Se necesita permiso para usar la cámara.');
-        return;
-      }
-      const result = await BarcodeScanner.startScan();
+  // async escanearQR() {
+  //   try {
+  //     const permission = await BarcodeScanner.checkPermission({ force: true });
+  //     if (!permission.granted) {
+  //       alert('Se necesita permiso para usar la cámara.');
+  //       return;
+  //     }
+  //     const result = await BarcodeScanner.startScan();
 
-      if (result.hasContent) {
-        const qrData = JSON.parse(result.content); // AQUÍ SE OBTIENE EL CONTENIDO DEL QR
-        const asistenciaId = qrData.asistenciaId;
-        this.vincularAsistencia(asistenciaId); // VINCULAR ALUMNO
-      }
-    } catch (err) {
-      console.error('Error al escanear QR:', err);
-    }
-  }
+  //     if (result.hasContent) {
+  //       const qrData = JSON.parse(result.content); // AQUÍ SE OBTIENE EL CONTENIDO DEL QR
+  //       const asistenciaId = qrData.asistenciaId;
+  //       this.vincularAsistencia(asistenciaId); // VINCULAR ALUMNO
+  //     }
+  //   } catch (err) {
+  //     console.error('Error al escanear QR:', err);
+  //   }
+  // }
 
   // METODO QUE VINCULA AL ALUMNO CON LA NUEVA ASISTENCIA
-  vincularAsistencia(asistenciaId: string) {
-    const alumnoId = 'id-del-alumno';
-    this.asistenciaService.addAsistencia(alumnoId).subscribe(
-      () => {
-        console.log('Asistencia registrada exitosamente');
-      },
-      (err) => console.error('Error al registrar asistencia:', err)
-    );
-  }
+  // vincularAsistencia(asistenciaId: string) {
+  //   const alumnoId = 'id-del-alumno';
+  //   this.asistenciaService.addAsistencia(alumnoId).subscribe(
+  //     () => {
+  //       console.log('Asistencia registrada exitosamente');
+  //     },
+  //     (err) => console.error('Error al registrar asistencia:', err)
+  //   );
+  // }
 
    // METODO PARA CERRAR EL MODAL
    Cerrar() {

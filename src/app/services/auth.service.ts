@@ -128,4 +128,9 @@ export class AuthService {
   getUserName(): string {
     return localStorage.getItem('userName') || this.userName || '';
   }
+
+  getProfesorAsignaturas(profesorId: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/usuarios/${profesorId}`);
+  }
+  
 }

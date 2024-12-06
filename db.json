@@ -26,40 +26,91 @@
       "rol": "alumno",
       "estado": "activo",
       "id": "fa4a"
+    },
+    {
+      "username": "ajimenez",
+      "email": "ajimenez@example.com",
+      "password": "Admin123!",
+      "nombre_completo": "Alejandro Jimenez",
+      "rol": "alumno",
+      "estado": "activo",
+      "id": "4b7d"
+    },
+    {
+      "username": "rhernandez",
+      "email": "rhernandez@example.com",
+      "password": "Admin123!",
+      "nombre_completo": "Rosa Hernandez",
+      "rol": "profesor",
+      "estado": "activo",
+      "id": "9c3f"
+    },
+    {
+      "username": "lgarcia",
+      "email": "lgarcia@example.com",
+      "password": "Admin123!",
+      "nombre_completo": "Luis Garcia",
+      "rol": "alumno",
+      "estado": "activo",
+      "id": "3a9e"
     }
   ],
-  "asistencias": [
+  "asignaturas": [
     {
-      "id": "a7b0",
-      "fecha": "2009-01-07T17:17:00",
-      "hora": "17:18",
-      "asistio": false,
-      "asignatura": {
-        "id": 1,
-        "nombre": "Hola"
-      },
-      "alumnoId": "fa4a"
+      "id": "CSY4111_002D",
+      "nombre": "CALIDAD DE SOFTWARE",
+      "horario": [
+        {
+          "dia": "lunes",
+          "horaInicio": "14:40",
+          "horaFin": "16:10"
+        },
+        {
+          "dia": "martes",
+          "horaInicio": "12:30",
+          "horaFin": "13:50"
+        }
+      ],
+      "alumnos": ["55ab", "fa4a", "3a9e"],
+      "profesor": "651b",
+      "asistencias": [
+        {
+          "fecha": "2024-12-04",
+          "alumnos": [
+            { "id": "55ab", "asistio": false },
+            { "id": "fa4a", "asistio": false },
+            { "id": "3a9e", "asistio": false }
+          ]
+        }
+      ]
     },
     {
-      "id": "d397",
-      "fecha": "2024-10-21T17:18:00",
-      "hora": "17:10",
-      "asistio": false,
-      "asignatura": {
-        "id": 1,
-        "nombre": "ola"
-      },
-      "alumnoId": "55ab"
-    },
-    {
-      "id": "c0e3",
-      "fecha": "2024-11-19T11:12:00",
-      "hora": "11:13",
-      "asistio": false,
-      "asignatura": {
-        "id": 1,
-        "nombre": "Lengua 123"
-      }
+      "id": "MAT4140",
+      "nombre": "Estadística Descriptiva",
+      "horario": [
+        {
+          "dia": "lunes",
+          "horaInicio": "11:00",
+          "horaFin": "12:20"
+        },
+        {
+          "dia": "miércoles",
+          "horaInicio": "10:11",
+          "horaFin": "11:40"
+        }
+      ],
+      "alumnos": ["55ab", "4b7d", "3a9e"],
+      "profesor": "9c3f",
+      "asistencias": [
+        {
+          "fecha": "2024-12-04",
+          "alumnos": [
+            { "id": "55ab", "asistio": false },
+            { "id": "4b7d", "asistio": false },
+            { "id": "3a9e", "asistio": false }
+          ]
+        }
+      ]
     }
   ]
 }

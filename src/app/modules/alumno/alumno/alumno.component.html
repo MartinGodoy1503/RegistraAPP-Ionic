@@ -1,21 +1,52 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Bienvenido Alumno, {{userName}}</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    <p>Aquí puedes ver tus clases y asistencias.</p>
-  </ion-card-content>
-</ion-card>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Asistencias del Alumno</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let asistencia of asistencias">
-      <ion-label>
-        <h2>{{ asistencia.asignatura.nombre }}</h2>
-        <p>Fecha: {{ asistencia.fecha | date: 'shortDate' }}</p>
-        <p>Hora: {{ asistencia.hora }}</p>
-        <p>Asistió: {{ asistencia.asistio ? 'Sí' : 'No' }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <!-- Bienvenida al Alumno -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Bienvenido, {{ userName }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Aquí puedes ver tus clases y asistencias registradas.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Escanear Código QR -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Escanear Código QR</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" color="primary" (click)="abrirCamara()">Abrir Cámara</ion-button>
+      <video #videoElement class="qr-video" autoplay></video>
+      <div *ngIf="codigoQR">
+        <h2>Resultado del QR:</h2>
+        <p>{{ codigoQR }}</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de Asistencias -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Mis Asistencias</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let asistencia of asistencias">
+          <ion-label>
+            <h2>{{ asistencia.asignatura.nombre }}</h2>
+            <p>Fecha: {{ asistencia.fecha | date: 'shortDate' }}</p>
+            <p>Horario: {{ asistencia.horario.dia }} {{ asistencia.horario.horaInicio }} - {{ asistencia.horario.horaFin }}</p>
+          </ion-label>
+          <ion-badge color="success" *ngIf="asistencia.asistio">Asistió</ion-badge>
+          <ion-badge color="danger" *ngIf="!asistencia.asistio">Faltó</ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
